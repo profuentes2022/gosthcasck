@@ -36,9 +36,9 @@ server.get("/sesiones", (req, res) => {
 
 
 server.post("/sesiones", (req, res) => {
-    const { id, nombre, correo, clave, rol } = req.body;
-    const sql = "INSERT INTO sesiones (id, nombre, correo, clave, rol) VALUES (?, ?, ?, ?, ?)";
-    const values = [id, nombre, correo, clave, rol];
+    const { id, nombre, correo, clave, rol, codigo } = req.body;
+    const sql = "INSERT INTO sesiones (id, nombre, correo, clave, rol) VALUES (?, ?, ?, ?, ?, ?)";
+    const values = [id, nombre, correo, clave, rol, codigo];
     
     poolmysql.query(sql, values, (err, result) => {
         if (err) {
@@ -51,9 +51,9 @@ server.post("/sesiones", (req, res) => {
 
 server.put("/sesiones/:id", (req, res) => {
     const { id } = req.params;
-    const { nombre, correo, clave, rol } = req.body;
-    const sql = "UPDATE sesiones SET nombre = ?, correo = ?, clave = ?, rol = ? WHERE id = ?";
-    const values = [nombre, correo, clave, rol, id];
+    const { nombre, correo, clave, rol, codigo } = req.body;
+    const sql = "UPDATE sesiones SET nombre = ?, correo = ?, clave = ?, rol = ?, codigo = ? WHERE id = ?";
+    const values = [nombre, correo, clave, rol, codigo, id];
     
     poolmysql.query(sql, values, (err, result) => {
         if (err) {
@@ -86,7 +86,7 @@ server.delete("/sesiones/:id", (req, res) => {
 
 
 
-//servidor usado 8000
+//servidor usado 4000
 
 server.listen(4000, () => {
     console.log('Servidor en línea en el puerto 4000');

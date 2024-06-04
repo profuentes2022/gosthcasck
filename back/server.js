@@ -6,7 +6,6 @@ const cors = require('cors');
 const server = express();
 
 // funcion para limkear
-server.use(express.static(path.join(__dirname, 'front')));
 
 server.use(express.json());
 server.use(cors({
@@ -25,65 +24,26 @@ const configdba = {
 
 const poolmysql = mysql.createPool(configdba);
 
-server.get("/sesiones", (req, res) => {
-    res.sendFile(path.join(__dirname,'front', ''));
-});
 
 
 server.post("/sesiones", (req, res) => {
-    const { id, nombre, correo, clave, rol, codigo } = req.body;
-    const sql = "INSERT INTO sesiones (id, nombre, correo, clave, rol) VALUES (?, ?, ?, ?, ?, ?)";
-    const values = [id, nombre, correo, clave, rol, codigo];
-    
-    poolmysql.query(sql, values, (err, result) => {
+    let id = req.body.id;
+    let nombre = req.body.nombre;
+    let correo = req.body.correo;
+    let clave = req.body.clave;
+    let rol = req.body.rol;
+
+    const sql = `INSERT INTO sesiones (id, nombre, correo, clave, rol) VALUES ('${id}', '${nombre}', '${correo}', '${clave}', '${rol}')`;
+
+    poolmysql.query(sql, function (err, result) {
         if (err) {
-            console.error("Error al insertar datos:", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
+            console.error("Error al insertar sesión:", err);
+            return res.status(500).send("Error interno del servidor");
         }
-        res.status(201).json({ message: "Datos insertados correctamente" });
+        res.status(201).send("Sesión insertada correctamente");
     });
 });
 
-server.put("/sesiones/:id", (req, res) => {
-    const { id } = req.params;
-    const { nombre, correo, clave, rol, codigo } = req.body;
-    const sql = "UPDATE sesiones SET nombre = ?, correo = ?, clave = ?, rol = ?, codigo = ? WHERE id = ?";
-    const values = [nombre, correo, clave, rol, codigo, id];
-    
-    poolmysql.query(sql, values, (err, result) => {
-        if (err) {
-            console.error("Error al actualizar sesión:", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
-        }
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ error: "No se encontró ninguna sesión para actualizar" });
-        }
-        res.status(200).json({ message: "Sesión actualizada correctamente" });
-    });
-});
-
-
-server.delete("/sesiones/:id", (req, res) => {
-    const { id } = req.params;
-    const sql = "DELETE FROM sesiones WHERE id = ?";
-    
-    poolmysql.query(sql, id, (err, result) => {
-        if (err) {
-            console.error("Error al eliminar datos:", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
-        }
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ error: "No se encontró ningún registro para eliminar" });
-        }
-        res.status(200).json({ message: "Registro eliminado correctamente" });
-    });
-});
-
-
-
-server.post("/login",(rep, res) =>{
-  
-});
 
 
 

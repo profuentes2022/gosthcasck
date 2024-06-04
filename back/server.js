@@ -40,7 +40,7 @@ server.post("/sesiones", (req, res) => {
             console.error("Error al insertar sesión:", err);
             return res.status(500).send("Error interno del servidor");
         }
-        res.status(201).send("Sesión insertada correctamente");
+        res.status(201).send("usuario insertado correcto");
     });
 });
 

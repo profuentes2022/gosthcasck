@@ -5,6 +5,9 @@ const cors = require('cors');
 
 const server = express();
 
+// funcion para limkear
+server.use(express.static(path.join(__dirname, 'front')));
+
 server.use(express.json());
 server.use(cors({
     origin: '*',
@@ -23,15 +26,7 @@ const configdba = {
 const poolmysql = mysql.createPool(configdba);
 
 server.get("/sesiones", (req, res) => {
-    const sql = "SELECT * FROM sesiones";
-
-    poolmysql.query(sql, (err, rows) => {
-        if (err) {
-            console.error("Error al obtener sesiones:", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
-        }
-        res.status(200).json(rows);
-    });
+    res.sendFile(path.join(__dirname,'front', ''));
 });
 
 
@@ -82,6 +77,12 @@ server.delete("/sesiones/:id", (req, res) => {
         }
         res.status(200).json({ message: "Registro eliminado correctamente" });
     });
+});
+
+
+
+server.post("/login",(rep, res) =>{
+  
 });
 
 

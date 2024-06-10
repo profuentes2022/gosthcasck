@@ -1,0 +1,26 @@
+.k2{
+    color:whitesmoke; 
+    position: absolute; 
+    top: 23%; 
+    left: 32%;
+    font-size: 180px;
+}
+
+@media only screen and (max-width:600px){
+
+    .k2{
+        color:rgb(245, 245, 245); 
+        position: absolute; 
+        top: 23%; 
+        left: 10%;
+        font-size: 150px;
+    }
+
+    .k1{
+        color:rgb(245, 245, 245); 
+        position: absolute; 
+        top: 23%; 
+        left: 10%;
+        font-size: 150px;
+    }
+}

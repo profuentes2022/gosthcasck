@@ -237,7 +237,11 @@ body{
   }
 
 
-
-
+  @media only screen and (max-width: 2000px) {
+    h1 {
+        position: absolute;
+        left: -880px;
+    }
+}
   
   

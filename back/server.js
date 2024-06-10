@@ -5,6 +5,8 @@ const cors = require('cors');
 
 const server = express();
 
+// funcion para limkear
+
 server.use(express.json());
 server.use(cors({
     origin: '*',
@@ -22,69 +24,108 @@ const configdba = {
 
 const poolmysql = mysql.createPool(configdba);
 
-server.get("/sesiones", (req, res) => {
-    const sql = "SELECT * FROM sesiones";
-
-    poolmysql.query(sql, (err, rows) => {
-        if (err) {
-            console.error("Error al obtener sesiones:", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
-        }
-        res.status(200).json(rows);
-    });
-});
 
 
 server.post("/sesiones", (req, res) => {
-    const { id, nombre, correo, clave, rol, codigo } = req.body;
-    const sql = "INSERT INTO sesiones (id, nombre, correo, clave, rol) VALUES (?, ?, ?, ?, ?, ?)";
-    const values = [id, nombre, correo, clave, rol, codigo];
-    
-    poolmysql.query(sql, values, (err, result) => {
+    let id = req.body.id;
+    let nombre = req.body.nombre;
+    let correo = req.body.correo;
+    let clave = req.body.clave;
+    let rol = req.body.rol;
+    let id_casco = req.body.id_casco;
+
+    const sql = `INSERT INTO sesiones (id, nombre, correo, clave, rol, id_casco) VALUES ('${id}', '${nombre}', '${correo}', '${clave}', '${rol}', '${id_casco}')`;
+
+    poolmysql.query(sql, function (err, result) {
         if (err) {
-            console.error("Error al insertar datos:", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
+            console.error("error al insertar sesión:", err);
+            return res.status(500).send("Error interno del servidor");
         }
-        res.status(201).json({ message: "Datos insertados correctamente" });
+        res.status(201).send("usuario insertado correcto");
     });
 });
 
 server.put("/sesiones/:id", (req, res) => {
-    const { id } = req.params;
-    const { nombre, correo, clave, rol, codigo } = req.body;
-    const sql = "UPDATE sesiones SET nombre = ?, correo = ?, clave = ?, rol = ?, codigo = ? WHERE id = ?";
-    const values = [nombre, correo, clave, rol, codigo, id];
-    
-    poolmysql.query(sql, values, (err, result) => {
+    let id = req.body.id;
+    let nombre = req.body.nombre;
+    let correo = req.body.correo;
+    let clave = req.body.clave;
+    let rol = req.body.rol;  
+    let id_casco = req.body.id_casco;  
+
+    const sql = `UPDATE sesiones SET nombre='${nombre}', correo='${correo}', clave='${clave}', rol='${rol}', id_casco='${id_casco}' WHERE id='${id}'`;
+
+    poolmysql.query(sql, function (err, result) {
         if (err) {
-            console.error("Error al actualizar sesión:", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
+            console.error("error al actualizar sesión:", err);
+            return res.status(500).send("id no encontrada");
         }
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ error: "No se encontró ninguna sesión para actualizar" });
-        }
-        res.status(200).json({ message: "Sesión actualizada correctamente" });
     });
 });
-
 
 server.delete("/sesiones/:id", (req, res) => {
-    const { id } = req.params;
-    const sql = "DELETE FROM sesiones WHERE id = ?";
-    
-    poolmysql.query(sql, id, (err, result) => {
+    let id = req.body.id;
+
+    const sql = `DELETE FROM sesiones WHERE id = '${id}'`;
+
+    poolmysql.query(sql, function (err, result) {
         if (err) {
-            console.error("Error al eliminar datos:", err);
-            return res.status(500).json({ error: "Error interno del servidor" });
+            console.error("error al eliminar sesion:", err);
+            return res.status(500).send("registro no encontrado");
         }
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ error: "No se encontró ningún registro para eliminar" });
-        }
-        res.status(200).json({ message: "Registro eliminado correctamente" });
     });
 });
 
 
+
+server.post("/usuarios", (req, res) => {
+    let id = req.body.id;
+    let correo = req.body.correo;
+    let clave = req.body.clave;
+    let rol = req.body.rol;
+    let id_casco = req.body.id_casco;
+
+    const sql = `INSERT INTO usuarios (id, correo, clave, rol, id_casco) VALUES ('${id}', '${correo}', '${clave}', '${rol}', '${id_casco}')`;
+
+    poolmysql.query(sql, function (err, result) {
+        if (err) {
+            console.error("Error al iniciar sesion;", err);
+            return res.status(500),send("Error del servidor");
+
+        }
+        res.status(201).send("Seccion iniciada correctamente")
+    });
+});
+
+server.put("/usuarios/:id", (req, res) => {
+    let id = req.body.id;
+    let correo = req.body.correo;
+    let clave = req.body.clave;
+    let rol = req.body.rol;
+    let id_casco = req.body.id_casco;
+
+    const sql = `UPDATE usuarios SET correo='${correo}', clave='${clave}', rol='${rol}', id_casco='${id_casco}' WHERE id='${id}'`;
+    
+    poolmysql.query(sql, function (err, result) {
+        if (err) {
+            console.error("error al actualizar usuario:", err);
+            return res.status(500).send("id no encontrada");
+        }
+    });
+});
+
+server.delete("/usuarios/:id", (req, res) => {
+    let id = req.body.id;
+
+    const sql = `DELETE FROM usuarios WHERE id = '${id}'`;
+
+    poolmysql.query(sql, function (err, result) {
+        if (err) {
+            console.error("error al eliminar usuario:", err);
+            return res.status(500).send("usuario no encontrado");
+        }
+    });
+});
 
 //servidor usado 4000
 

@@ -28,6 +28,10 @@ const configdba = {
 
 const poolmysql = mysql.createPool(configdba);
 
+server.get("/ADMIN", (req, res) => {
+    res.sendFile(path.join(__dirname, 'front', 'admin.html'));
+});
+
 server.get("/landing", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'landing.html'));
 });

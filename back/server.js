@@ -28,7 +28,7 @@ const configdba = {
 
 const poolmysql = mysql.createPool(configdba);
 
-server.get("/landpage", (req, res) => {
+server.get("/landing", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'landing.html'));
 });
 

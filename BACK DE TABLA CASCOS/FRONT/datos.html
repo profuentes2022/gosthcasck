@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="qrcode.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
     <title></title>
     <style>
         
@@ -96,6 +100,68 @@
                         <label for="inputHelmetID" class="form-label">ID Casco</label>
                         <input type="text" class="form-control" id="IDC" placeholder="ID Casco">
                     </div>
+                    <div class="mb-3">
+                        <label for="inputName" class="form-label">Codigo Del Casco</label>
+                        <input type="text" class="form-control" id="cod" placeholder="codigo">
+                    </div>
+                    <br>
+                    
+                    <label for="inputName" class="form-label">Ingrese QR</label>
+                    <input id="text" type="text" value="http://localhost/4000/regis/" class="form-control" style="width:60%" />
+                    
+                    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var codigoInput = document.getElementById('cod');
+        var qrInput = document.getElementById('text');
+        
+        codigoInput.addEventListener('input', function() {
+
+            var codigo = codigoInput.value;
+            var qrValue = qrInput.value;
+
+            qrInput.value = qrValue.slice(0, qrValue.lastIndexOf('/') + 1) + codigo;
+        });
+    });
+</script>
+              
+<br />
+<div id="qrcode" style="width:200px; height:200px; margin-left:5px;margin-top: 15px;"></div>
+
+<script type="text/javascript">
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+	width : 200,
+	height : 200
+});
+
+function makeCode () {		
+	var elText = document.getElementById("text");
+	
+	if (!elText.value) {
+		alert("Input a text");
+		elText.focus();
+		return;
+	}
+	
+	qrcode.makeCode(elText.value);
+}
+
+makeCode();
+
+$("#text").
+	on("blur", function () {
+		makeCode();
+	}).
+	on("keydown", function (e) {
+		if (e.keyCode == 13) {
+			makeCode();
+		}
+	});
+</script>
+<br>
+<input class="btn btn-primary-custom w-100" type="button" value="genrar QR" onclick="makeCode ()" >
+<br>
+<br>
+
                     <button type="submit" class="btn btn-primary-custom w-100">Insertar</button>
                 </form>
             </div>

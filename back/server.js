@@ -146,6 +146,9 @@ server.delete("/usuarios/:id", (req, res) => {
     });
 });
 
+
+
+
 // servidor usado 4000
 server.listen(4000, () => {
     console.log('Servidor en línea en el puerto 4000');

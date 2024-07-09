@@ -28,14 +28,13 @@ const configdba = {
 
 const poolmysql = mysql.createPool(configdba);
 
-server.get("/ADMIN", (req, res) => {
+server.get("/admin", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'admin.html'));
 });
 
-server.get("/landing", (req, res) => {
+server.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'landing.html'));
 });
-
 server.get("/sesiones", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'regis.html'));
 });
@@ -97,13 +96,11 @@ server.get("/usuarios", (req, res) => {
 });
 
 server.post("/usuarios", (req, res) => {
-    let id = req.body.id;
+    let usuario = req.body.usuario;
     let correo = req.body.correo;
     let clave = req.body.clave;
-    let rol = req.body.rol;
-    let id_casco = req.body.id_casco;
 
-    const sql = `INSERT INTO usuarios (id, correo, clave, rol, id_casco) VALUES ('${id}', '${correo}', '${clave}', '${rol}', '${id_casco}')`;
+    const sql = `INSERT INTO usuarios (usuario, correo, clave) VALUES ('${usuario}', '${correo}', '${clave}')`;
 
     poolmysql.query(sql, function (err, result) {
         if (err) {
@@ -114,14 +111,12 @@ server.post("/usuarios", (req, res) => {
     });
 });
 
-server.put("/usuarios/:id", (req, res) => {
-    let id = req.params.id;
+server.put("/usuarios/:usuario", (req, res) => {
+    let usuario = req.params.usuario;
     let correo = req.body.correo;
     let clave = req.body.clave;
-    let rol = req.body.rol;
-    let id_casco = req.body.id_casco;
 
-    const sql = `UPDATE usuarios SET correo='${correo}', clave='${clave}', rol='${rol}', id_casco='${id_casco}' WHERE id='${id}'`;
+    const sql = `UPDATE usuarios SET correo='${correo}', clave='${clave}' WHERE id='${usuario}'`;
 
     poolmysql.query(sql, function (err, result) {
         if (err) {
@@ -132,10 +127,10 @@ server.put("/usuarios/:id", (req, res) => {
     });
 });
 
-server.delete("/usuarios/:id", (req, res) => {
+server.delete("/usuarios/:usuario", (req, res) => {
     let id = req.params.id;
 
-    const sql = `DELETE FROM usuarios WHERE id = '${id}'`;
+    const sql = `DELETE FROM usuarios WHERE id = '${usuario}'`;
 
     poolmysql.query(sql, function (err, result) {
         if (err) {

@@ -32,7 +32,7 @@ server.get("/admin", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'admin.html'));
 });
 
-server.get("/", (req, res) => {
+server.get("/index", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'landing.html'));
 });
 server.get("/sesiones", (req, res) => {

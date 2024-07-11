@@ -14,7 +14,6 @@ const { SerialPort } = require('serialport');
 const port = new SerialPort({path: 'COM', baudRate: 966 });
 const { ReadLineParser } = require('@serialport/parser-readline');
 
-const parser = port.pipe(new ReadLineParser({ delimiter: '\r\n'}));
 
 
 port.on('error', function(err) {

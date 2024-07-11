@@ -19,7 +19,7 @@
             flex-grow: 1;
             border: 1px solid #ccc;
             padding: 10px;
-            max-height: 70vh;
+            margin-bottom: 60px; /* Deja espacio para el formulario de mensaje */
         }
         #messages li {
             margin-bottom: 10px;
@@ -30,17 +30,23 @@
         #idCascoForm {
             margin-bottom: 20px;
         }
-        form {
+        #messageFormContainer {
             display: flex;
             position: fixed;
             bottom: 20px;
             width: calc(100% - 40px);
+            background-color: white;
+            padding: 10px 0;
         }
-        form input[type="text"] {
+        #messageFormContainer form {
+            display: flex;
+            width: 100%;
+        }
+        #messageFormContainer form input[type="text"] {
             flex: 1;
             padding: 10px;
         }
-        form button {
+        #messageFormContainer form button {
             padding: 10px 20px;
             background-color: #007bff;
             color: white;
@@ -54,10 +60,12 @@
         <input type="text" id="id_casco" placeholder="ID Casco">
     </form>
     <ul id="messages"></ul>
-    <form id="messageForm">
-        <input type="text" id="message" placeholder="Mensaje">
-        <button type="submit">Enviar</button>
-    </form>
+    <div id="messageFormContainer">
+        <form id="messageForm">
+            <input type="text" id="message" placeholder="Mensaje">
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>

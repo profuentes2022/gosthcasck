@@ -1,32 +1,35 @@
-
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const jwt = require('jsonwebtoken');
+const http = require('http');
+const socketIo = require('socket.io');
 
 const server = express();
+const httpServer = http.createServer(server);
+const io = socketIo(httpServer);
 
-// función para linkear
+// Middleware y configuración
 server.use(express.static(path.join(__dirname, 'front')));
-
 server.use(express.json());
-server.use(cors({
-    origin: '*',
-    methods: 'HEAD,GET,PUT,DELETE,POST,PATCH',
-}));
+server.use(cors());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
 const configdba = {
     host: 'localhost',
-    user: 'root',
+    usuario: 'root',
     password: '',
-    database: 'Ghost',
+    database: 'ghost',
 };
 
 const poolmysql = mysql.createPool(configdba);
+
+// Rutas para linkear
+server.get("/chat", (req, res) => {
+    res.sendFile(path.join(__dirname, 'front', 'chat.html'));
+});
 
 server.get("/admin", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'admin.html'));
@@ -35,10 +38,12 @@ server.get("/admin", (req, res) => {
 server.get("/index", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'landing.html'));
 });
+
 server.get("/sesiones", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'regis.html'));
 });
 
+// Endpoint para registrar sesiones
 server.post("/sesiones", (req, res) => {
     let id = req.body.id;
     let nombre = req.body.nombre;
@@ -51,13 +56,14 @@ server.post("/sesiones", (req, res) => {
 
     poolmysql.query(sql, function (err, result) {
         if (err) {
-            console.error("error al insertar sesión:", err);
+            console.error("Error al insertar sesión:", err);
             return res.status(500).send("Error interno del servidor");
         }
-        res.status(201).send("usuario insertado correcto");
+        res.status(201).send("Usuario insertado correctamente");
     });
 });
 
+// Endpoint para actualizar sesiones
 server.put("/sesiones/:id", (req, res) => {
     let id = req.params.id;
     let nombre = req.body.nombre;
@@ -70,13 +76,14 @@ server.put("/sesiones/:id", (req, res) => {
 
     poolmysql.query(sql, function (err, result) {
         if (err) {
-            console.error("error al actualizar sesión:", err);
-            return res.status(500).send("id no encontrada");
+            console.error("Error al actualizar sesión:", err);
+            return res.status(500).send("ID no encontrada");
         }
         res.status(200).send("Sesión actualizada correctamente");
     });
 });
 
+// Endpoint para eliminar sesiones
 server.delete("/sesiones/:id", (req, res) => {
     let id = req.params.id;
 
@@ -84,13 +91,14 @@ server.delete("/sesiones/:id", (req, res) => {
 
     poolmysql.query(sql, function (err, result) {
         if (err) {
-            console.error("error al eliminar sesion:", err);
-            return res.status(500).send("registro no encontrado");
+            console.error("Error al eliminar sesión:", err);
+            return res.status(500).send("Registro no encontrado");
         }
         res.status(200).send("Sesión eliminada correctamente");
     });
 });
 
+// Endpoint para gestionar usuarios
 server.get("/usuarios", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'login.html'));
 });
@@ -104,10 +112,10 @@ server.post("/usuarios", (req, res) => {
 
     poolmysql.query(sql, function (err, result) {
         if (err) {
-            console.error("Error al iniciar sesion:", err);
+            console.error("Error al insertar usuario:", err);
             return res.status(500).send("Error del servidor");
         }
-        res.status(201).send("Seccion iniciada correctamente");
+        res.status(201).send("Usuario insertado correctamente");
     });
 });
 
@@ -120,31 +128,44 @@ server.put("/usuarios/:usuario", (req, res) => {
 
     poolmysql.query(sql, function (err, result) {
         if (err) {
-            console.error("error al actualizar usuario:", err);
-            return res.status(500).send("id no encontrada");
+            console.error("Error al actualizar usuario:", err);
+            return res.status(500).send("ID no encontrada");
         }
         res.status(200).send("Usuario actualizado correctamente");
     });
 });
 
 server.delete("/usuarios/:usuario", (req, res) => {
-    let id = req.params.id;
+    let usuario = req.params.usuario;
 
     const sql = `DELETE FROM usuarios WHERE id = '${usuario}'`;
 
     poolmysql.query(sql, function (err, result) {
         if (err) {
-            console.error("error al eliminar usuario:", err);
-            return res.status(500).send("usuario no encontrado");
+            console.error("Error al eliminar usuario:", err);
+            return res.status(500).send("Usuario no encontrado");
         }
         res.status(200).send("Usuario eliminado correctamente");
     });
 });
 
+// Configuración de Socket.io
+io.on('connection', (socket) => {
+    console.log('Nuevo cliente conectado');
 
+    socket.on('sendMessage', (messageData) => {
+        const { id_casco, message } = messageData;
+        const formattedMessage = `ID Casco:${id_casco} Mensaje:${message}`;
+        
+        io.emit('messageToClient', formattedMessage);
+    });
 
+    socket.on('disconnect', () => {
+        console.log('Cliente desconectado');
+    });
+});
 
-// servidor usado 4000
-server.listen(4000, () => {
+// Servidor escuchando en el puerto 4000
+httpServer.listen(4000, () => {
     console.log('Servidor en línea en el puerto 4000');
 });

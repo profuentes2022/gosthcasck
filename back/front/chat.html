@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #messages {
+            list-style-type: none;
+            padding: 0;
+        }
+        #messages li {
+            margin-bottom: 10px;
+        }
+        #messages li strong {
+            margin-right: 10px;
+        }
+        form {
+            display: flex;
+        }
+        form input[type="text"] {
+            flex: 1;
+            padding: 10px;
+        }
+        form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat</h1>
+    <ul id="messages"></ul>
+    <form id="messageForm">
+        <input type="text" id="id_casco" placeholder="ID Casco">
+        <input type="text" id="message" placeholder="Mensaje">
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const socket = io();
+
+            const messageForm = document.getElementById('messageForm');
+            const idCascoInput = document.getElementById('id_casco');
+            const messageInput = document.getElementById('message');
+            const messagesList = document.getElementById('messages');
+
+            socket.on('connect', () => {
+                console.log('Conectado al servidor');
+                const li = document.createElement('li');
+                li.textContent = 'Conectado al chat';
+                messagesList.appendChild(li);
+            });
+
+            socket.on('disconnect', () => {
+                console.log('Desconectado del servidor');
+                const li = document.createElement('li');
+                li.textContent = 'Desconectado del chat';
+                messagesList.appendChild(li);
+            });
+
+            messageForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const id_casco = idCascoInput.value.trim();
+                const message = messageInput.value.trim();
+
+                if (id_casco && message) {
+                    socket.emit('sendMessage', { id_casco, message });
+                    idCascoInput.value = '';
+                    messageInput.value = '';
+                }
+            });
+
+            socket.on('messageToClient', (formattedMessage) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${formattedMessage}</strong>`;
+                messagesList.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>

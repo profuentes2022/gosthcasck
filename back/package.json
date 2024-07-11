@@ -18,6 +18,7 @@
     "johnny-five": "^2.1.0",
     "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1",
-    "serialport": "^12.0.0"
+    "serialport": "^12.0.0",
+    "socket.io": "^4.7.5"
   }
 }

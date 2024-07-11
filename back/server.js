@@ -10,17 +10,6 @@ const server = express();
 const httpServer = http.createServer(server);
 const io = socketIo(httpServer);
 
-const { SerialPort } = require('serialport');
-const port = new SerialPort({path: 'COM', baudRate: 966 });
-const { ReadLineParser } = require('@serialport/parser-readline');
-
-
-
-port.on('error', function(err) {
-
-    console.log('Error: ', err.message);
-
-});
 
 // Middleware y configuración
 server.use(express.static(path.join(__dirname, 'front')));
@@ -30,7 +19,7 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
 const configdba = {
-    host: '192.168.226.143',
+    host: 'localhost',
     usuario: 'root',
     password: '',
     database: 'ghost',

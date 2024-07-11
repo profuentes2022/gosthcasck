@@ -8,10 +8,18 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 90vh;
         }
         #messages {
             list-style-type: none;
             padding: 0;
+            overflow-y: auto;
+            flex-grow: 1;
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-height: 70vh;
         }
         #messages li {
             margin-bottom: 10px;
@@ -19,8 +27,14 @@
         #messages li strong {
             margin-right: 10px;
         }
+        #idCascoForm {
+            margin-bottom: 20px;
+        }
         form {
             display: flex;
+            position: fixed;
+            bottom: 20px;
+            width: calc(100% - 40px);
         }
         form input[type="text"] {
             flex: 1;
@@ -36,10 +50,11 @@
     </style>
 </head>
 <body>
-    <h1>Chat</h1>
+    <form id="idCascoForm">
+        <input type="text" id="id_casco" placeholder="ID Casco">
+    </form>
     <ul id="messages"></ul>
     <form id="messageForm">
-        <input type="text" id="id_casco" placeholder="ID Casco">
         <input type="text" id="message" placeholder="Mensaje">
         <button type="submit">Enviar</button>
     </form>
@@ -59,6 +74,7 @@
                 const li = document.createElement('li');
                 li.textContent = 'Conectado al chat';
                 messagesList.appendChild(li);
+                scrollToBottom();
             });
 
             socket.on('disconnect', () => {
@@ -66,6 +82,7 @@
                 const li = document.createElement('li');
                 li.textContent = 'Desconectado del chat';
                 messagesList.appendChild(li);
+                scrollToBottom();
             });
 
             messageForm.addEventListener('submit', (event) => {
@@ -76,7 +93,6 @@
 
                 if (id_casco && message) {
                     socket.emit('sendMessage', { id_casco, message });
-                    idCascoInput.value = '';
                     messageInput.value = '';
                 }
             });
@@ -85,7 +101,12 @@
                 const li = document.createElement('li');
                 li.innerHTML = `<strong>${formattedMessage}</strong>`;
                 messagesList.appendChild(li);
+                scrollToBottom();
             });
+
+            function scrollToBottom() {
+                messagesList.scrollTop = messagesList.scrollHeight;
+            }
         });
     </script>
 </body>

@@ -1,26 +1,75 @@
 .k2{
     color:whitesmoke; 
     position: absolute; 
-    top: 23%; 
+    top: 22%; 
     left: 32%;
     font-size: 180px;
 }
-
+.k1{
+    color:#E26E6E;position: absolute; top: 23%; left: 33%;font-size: 180px;
+}
+.talla8{position: absolute; top: 77%; left: 3%; color: aliceblue;
+    background: none; border-color: aliceblue; width: 2.7%; font-weight: 500; height: 5%;}
+.talla9{ position: absolute; top: 77%; left: 7.5%; color: aliceblue;
+    background: none; border-color: aliceblue; width: 2.7%; font-weight: 500; height: 5%;}
+.talla10{ position: absolute; top: 77%; left: 12%; color: aliceblue;
+    background: none; border-color: aliceblue; width: 2.7%; font-weight: 500; height: 5%;}
+.talla11{ position: absolute; top: 77%; left: 16.5%; color: aliceblue;
+    background: none; border-color: aliceblue; width: 2.7%; font-weight: 500; height: 5%;}
+.talla12{position: absolute; top: 77%; left: 21%; color: aliceblue;
+    background: none; border-color: aliceblue; width: 2.7%; font-weight: 500; height:5%;}
+.comprar{ position: absolute;  top: 3%; background: none; color: aliceblue;
+    border: none; font-size: 110%; font-weight: bold; left: 34%;}
+.inicio{position: absolute;  top: 3%; background: none; color: aliceblue;
+    border: none; font-size: 110%; font-weight: bold; left: 46%;}
+.cont{position: absolute;  top: 3%; background: none; color: aliceblue;
+    border: none; font-size: 110%; font-weight: bold; left: 56%;}
+    .log{position: absolute;  top: 3%; background: none; color: aliceblue;
+        font-size: 110%; font-weight: bold; left: 90%; border-radius: 24px 24px 24px 24px;
+        border-color: aliceblue; width: 3.5%; height: 7.5%;}
+.not{position: absolute;  top: 3%; background: none; color: aliceblue;
+    font-size: 110%; font-weight: bold; left: 85%; border-radius: 24px 24px 24px 24px;
+    border-color: aliceblue; width: 3.5%; height: 7.5%;}
+ .k11{color:#6C68C5; position: absolute; top: 23.7%; left: 32.8%;
+           font-size: 180px;}
+.k111{color:#AC75C1; position: absolute; top: 23.7%; left: 32.8%;
+    font-size: 180px;}
+.k1111{ color:#72A686; position: absolute; top: 23.7%; left: 32.8%;
+    font-size: 180px;}
 @media only screen and (max-width:600px){
-
+    .k1111{ color:#72A686; position: absolute; top: 13%; left: 27%;
+        font-size: 450%;}
+    .k111{color:#AC75C1; position: absolute; top: 13%; left: 27%;
+        font-size: 450%;}
+    .talla12{position: absolute; top: 77%; left: 37%; color: aliceblue;
+        background: none; border-color: aliceblue; width: 7%; font-weight: 500; height: 4%;}
+    .talla11{ position: absolute; top: 77%; left: 28%; color: aliceblue;
+        background: none; border-color: aliceblue; width: 7%; font-weight: 500; height: 4%;}
+    .talla10{ position: absolute; top: 77%; left: 19%; color: aliceblue;
+        background: none; border-color: aliceblue; width: 7%; font-weight: 500; height: 4%;}
+    .talla9{ position: absolute; top: 77%; left: 11%; color: aliceblue;
+        background: none; border-color: aliceblue; width: 6%; font-weight: 500; height: 4%;}
+.talla8{position: absolute; top: 77%; left: 3%; color: aliceblue;
+    background: none; border-color: aliceblue; width: 6%; font-weight: 500; height: 4%;}
+.not{position: absolute;  top: 3%; background: none; color: aliceblue;
+    font-size: 110%; font-weight: bold; left: 80.5%; border-radius: 24px 24px 24px 24px;
+    border-color: aliceblue; width: 9%; height: 5%;}
+    .k11{color:#6C68C5; position: absolute; top: 13%; left: 27%;
+        font-size: 450%;}
     .k2{
-        color:rgb(245, 245, 245); 
-        position: absolute; 
-        top: 23%; 
-        left: 10%;
-        font-size: 150px;
+        color:#ffffff; position: absolute; top: 13%; left: 25%; font-size: 450%;
     }
-
+.log{position: absolute;  top: 3%; background: none; color: aliceblue;
+    font-size: 110%; font-weight: bold; left: 90%; border-radius: 24px 24px 24px 24px;
+    border-color: aliceblue; width: 9%; height: 5%;}
     .k1{
-        color:rgb(245, 245, 245); 
-        position: absolute; 
-        top: 23%; 
-        left: 10%;
-        font-size: 150px;
+        color:#E26E6E;position: absolute; top: 13%; left: 27%;font-size: 450%;
     }
+.cont{position: absolute;  top: 3%; background: none; color: aliceblue;
+    border: none; font-size: 100%; font-weight: bold; left: 56%;}
+    .comprar{
+        position: absolute;  top: 3%; background: none; color: aliceblue;
+        border: none; font-size: 100%; font-weight: bold; left: 10%;}
+    .inicio{ position: absolute;  top: 3%; background: none; color: aliceblue;
+        border: none; font-size: 100%; font-weight: bold; left: 36%;}
 }

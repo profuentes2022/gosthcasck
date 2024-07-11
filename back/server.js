@@ -20,7 +20,7 @@ server.use(bodyParser.json());
 
 const configdba = {
     host: 'localhost',
-    usuario: 'root',
+    usur: 'root',
     password: '',
     database: 'ghost',
 };

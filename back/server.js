@@ -182,18 +182,6 @@ io.on('connection', (socket) => {
     });
 });
 
-server.post('/admin', (req, res) => {
-    if (isOn) {
-        console.log('Enviar "a" al Arduino');
-        isOn = false;
-        res.send('Apagar (a) enviado');
-    } else {
-        console.log('Enviar "e" al Arduino');
-        isOn = true;
-        res.send('Encender (e) enviado');
-    }
-});
-
 // Servidor escuchando en el puerto 4000
 httpServer.listen(4000, () => {
     console.log('Servidor en línea en el puerto 4000');

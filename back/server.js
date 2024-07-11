@@ -156,6 +156,7 @@ io.on('connection', (socket) => {
 
     socket.on('sendMessage', (messageData) => {
         const { id_casco, message } = messageData;
+        const sqlM = 'SELECT nombre FROM usuarios WHERE id ='
         const formattedMessage = `ID Casco:${id_casco} Mensaje:${message}`;
         
         io.emit('messageToClient', formattedMessage);

@@ -29,6 +29,7 @@
         }
         #idCascoForm {
             margin-bottom: 20px;
+            display: flex; 
         }
         #messageFormContainer {
             display: flex;
@@ -53,11 +54,15 @@
             border: none;
             cursor: pointer;
         }
+        #id_casco {
+            margin-right: 10px; /* Añadir para separar los campos */
+        }
     </style>
 </head>
 <body>
     <form id="idCascoForm">
         <input type="text" id="id_casco" placeholder="ID Casco">
+        <input type="text" id="nombre" placeholder="Nombre" readonly> <!-- Añadir campo de nombre -->
     </form>
     <ul id="messages"></ul>
     <div id="messageFormContainer">
@@ -70,21 +75,30 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
 
-        document.getElementById('id_casco').addEventListener("change",(e)=>{
-            const idCasco = e.target.value
-            alert(idCasco);
-            fetch("http://localhost:4000/us?idCasco=${idCasco}")
-            .then(Response=>Response.json)
-            .then(data=data.json())
+        document.getElementById('id_casco').addEventListener("change", (e) => {
+            const idCasco = e.target.value;
+            alert("Bienvenido Usuario del Casco:" + idCasco);
+
+            fetch(`http://localhost:4000/us?idCasco=${idCasco}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        document.getElementById('nombre').value = data[0].nombre; // Asignar el nombre al campo
+                    } else {
+                        document.getElementById('nombre').value = ''; // Limpiar el campo si no hay datos
+                    }
+                })
+                .catch(err => {
+                    console.error('Error al obtener nombre:', err);
+                    document.getElementById('nombre').value = ''; // Limpiar el campo en caso de error
+                });
         });
-
-
 
         document.addEventListener('DOMContentLoaded', () => {
             const socket = io();
 
             const messageForm = document.getElementById('messageForm');
-            const idCascoInput = document.getElementById('id_casco');
+            const idCascoInput = document.getElementById('nombre');
             const messageInput = document.getElementById('message');
             const messagesList = document.getElementById('messages');
 

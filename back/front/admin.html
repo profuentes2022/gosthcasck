@@ -2,10 +2,282 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Document</title>
 </head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<style>
+
+body{
+    transition-duration: 2s;
+    margin: 0; 
+    width: 100%;
+    height: 100vh;
+    animation: slide 20s infinite linear;
+    }
+@keyframes slide {
+
+0%{
+    background: linear-gradient(to bottom, #0702E0, #0D0667);
+}    
+35%{background: linear-gradient(to bottom, #21A14B, #093E23);}
+70%{background: linear-gradient(to bottom, #E90606, #9D1C1C);}
+100%{background: linear-gradient(to bottom, #C025D2, #340E66);}
+}
+
+.log{position: absolute;  top: 3%; background: none; color: aliceblue;
+ font-size: 18px; font-weight: bold; left: 90%; border-radius: 24px 24px 24px 24px;
+ border-color: aliceblue; width: 3.5%; height: 7.5%;}
+.not{position: absolute;  top: 3%; background: none; color: aliceblue;
+ font-size: 18px; font-weight: bold; left: 85%; border-radius: 24px 24px 24px 24px;
+ border-color: aliceblue; width: 3.5%; height: 7.5%;}
+
+
+.k1{
+color:#6C68C5; position: absolute; top: -10.7%; left: 30.8%;
+    font-size: 180px;
+}
+.k2{
+    color:whitesmoke; position: absolute; top: -10%; left: 30%;
+    font-size: 180px;
+}
+
+.casc{
+width: 15%; top: 38%; left: 42%; position: absolute;
+}
+
+.enc{
+
+    width: 54px; height: 54px;
+}
+
+#ben{position: absolute;  top: 73%; left: 46%;width: 8%; height: 15%;}
+
+#ben:hover{
+
+background: none;
+    
+}
+
+#chat{background-color: aliceblue;  width: 20%; height: 47%; border-radius: 10px 10px 10px 10px;
+top: 50%; left: 2%; position: absolute; }
+#send{
+    background-color: rgb(151, 190, 223); width: 100%; height: 17%; top: 84%; position: absolute;
+}
+#cerrar{ width: 100%; height:17%; background-color: #d87575; border-radius: 0px 0px 10px 10px;}
+#xxx{ left: 85%; top: 3%;}
+
+#cas{width: 40%; position: absolute;  }
+@media only screen and (max-width:600px){
+.k1{
+    font-size: 55px;
+    left: 32.7%; top:-0%;
+}
+.k2{
+    font-size: 55px;
+    left: 32%; top:-0%;
+}
+
+#chat{background-color: aliceblue;  width: 43%; height: 34%; border-radius: 10px 10px 10px 10px;
+top: 65%; left: 2%; position: absolute; }
+#send{
+    background-color: rgb(151, 190, 223); width: 100%; height: 17%; top: 84%;
+    border-radius: 10px 10px 10px 10px; position: absolute;
+}
+#cerrar{ width: 100%; height:17%; background-color: #d87575; border-radius: 10px 10px 10px 10px;}
+#xxx{left: 130px; position: absolute;}
+.casc{position: absolute; width: 40%; top: 18%; left: 31%;}
+
+.log{position: absolute;  top: 4%; background: none; color: aliceblue;
+ font-size: 18px; font-weight: bold; left: 85%; border-radius: 20px 20px 20px 20px;
+ border-color: aliceblue; width: 11%; height: 6%;}
+
+.not{
+    position: absolute;  top: 4%; background: none; color: aliceblue;
+ font-size: 18px; font-weight: bold; left: 73%; border-radius: 24px 24px 24px 24px;
+ border-color: aliceblue; width: 11%; height: 6%;
+}
+
+#barr{
+
+position: absolute; top: 3%; left: 1%;
+
+}
+
+#ben{
+top:45%; left:37%;
+width: 100px;
+height: 15%;
+}
+
+
+.wrapper {
+  display: inline-flex;
+  list-style: none;
+  height: 740px;
+  width: 25%;
+  padding-top: 560px;
+  font-family: "Poppins", sans-serif;
+  justify-content: center;
+}
+
+.wrapper .icon {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  margin: 10px;
+  width: 80px;
+  height: 80px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip {
+  position: absolute;
+  top: 0;
+  font-size: 14px;
+  background: #fff;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: #fff;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .icon:hover .tooltip {
+  top: -45px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.wrapper .icon:hover span,
+.wrapper .icon:hover .tooltip {
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper .facebook:hover,
+.wrapper .facebook:hover .tooltip,
+.wrapper .facebook:hover .tooltip::before {
+  background: #1877f2;
+  color: #fff;
+}
+
+
+
+
+
+
+
+}
+
+</style>
 <body>
-    administracion
+
+    <p class="k1" > 𝗞𝗔𝗦𝗞</p>
+<p  class="k2" > 𝗞𝗔𝗦𝗞</p>
+
+
+
+<button type="button" class="not"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+</svg></button>
+<button type="button" class="log" onclick="mandar()" ><svg xmlns="http://www.w3.org/2000/svg" 
+ width="18" height="18" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+</svg> </button>
+
+<!--inicio de la barra desplegable horizontal-->
+<a class="btn btn-primary"  style="background: none; border: none;" id="barr" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+    <svg xmlns="http://www.w3.org/2000/svg" style="background: none;" width="35" height="35" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+      </svg>
+  </a>
+ 
+  
+  <div class="offcanvas offcanvas-start" style="width: 50%;" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header"  >
+      <h5 class="offcanvas-title"  id="offcanvasExampleLabel">Utilidades</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body"   >
+      <div>
+
+        <button type="button" style="border-radius: 61px 61px 61px 61px;
+  border-width: 2px;height: 60%; color: #0D0667; " class="btn btn-outline-light">Vicera
+ <img src="casco.png" alt="" id="cas">
+
+    </div>
+    </div>
+  </div>
+<!--fin barr horizontal-->
+
+
+<img src="casco.png" alt="" id="visera" class="casc" onclick="abrirVisera()">
+
+
+<button type="button" id="ben" style="border-radius: 61px 61px 61px 61px;
+  border-width: 2px; " class="btn btn-outline-light">
+  <svg  viewBox="0 0 512 512"   style="fill: whitesmoke;" height="32" withd="32" xmlns="http://www.w3.org/2000/svg">
+    <path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V256c0 17.7 14.3 32 32 32s32-14.3 32-32V32zM143.5 120.6c13.6-11.3 15.4-31.5 4.1-45.1s-31.5-15.4-45.1-4.1C49.7 115.4 16 181.8 16 256c0 132.5 107.5 240 240 240s240-107.5 240-240c0-74.2-33.8-140.6-86.6-184.6c-13.6-11.3-33.8-9.4-45.1 4.1s-9.4 33.8 4.1 45.1c38.9 32.3 63.5 81 63.5 135.4c0 97.2-78.8 176-176 176s-176-78.8-176-176c0-54.4 24.7-103.1 63.5-135.4z"></path>
+    </svg>
+   
+    
+</button>
+
+<!---boton mensaje-->
+
+<ul class="wrapper" onclick="regis()">
+    <li class="icon facebook">
+      <span class="tooltip">CHAT</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="26" height= "26" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+        <path d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+        <path
+          d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
+        ></path>
+      </svg>
+    </li>
+      
+  
+
+
+
+<!--fin mensaje-->
+
+<script>
+    function abrirVisera() {
+        var visera = document.getElementById('visera');
+        console.log('Abrir visera.');
+        alert('Visera Abierta');
+    }
+
+    function regis(){
+    document.location.href="file:///C:/Users/pacoc/OneDrive/Escritorio/corregido/chat.html";
+    
+    }
+    </script>
+
+
 </body>
 </html>

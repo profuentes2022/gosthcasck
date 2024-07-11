@@ -164,23 +164,7 @@ server.get("/us", (req,res)=> {
 })
 
 
-server.post("/us", (req,res)=> {
-    const idCasco = req.query.idCasco;
-    const sql = `SELECT nombre FROM usuarios WHERE id_casco ='${idCasco}'`;
-    poolmysql.query(sql, function(err,result){
 
-        if(err){
-            console.error("Error al buscar el usuario:", err);
-            return res.status(500).send("Usuario no encontrado");
-        }
-        if (result.length > 0) {
-            res.json({ nombre: result[0].nombre });
-          } else {
-            res.json({ nombre: 'No se encontró usuario' });
-          }
-
-    })
-})
 
 // Configuración de Socket.io
 io.on('connection', (socket) => {
@@ -188,7 +172,7 @@ io.on('connection', (socket) => {
 
     socket.on('sendMessage', (messageData) => {
         const { id_casco, message } = messageData;
-        const formattedMessage = `ID Casco:${id_casco} Mensaje:${message}`;
+        const formattedMessage = `Usuario: ${id_casco} Mensaje: ${message}`;
         
         io.emit('messageToClient', formattedMessage);
     });

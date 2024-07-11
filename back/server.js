@@ -20,7 +20,7 @@ server.use(bodyParser.json());
 
 const configdba = {
     host: 'localhost',
-    usur: 'root',
+    user: 'root',
     password: '',
     database: 'ghost',
 };
@@ -151,7 +151,20 @@ server.delete("/usuarios/:usuario", (req, res) => {
 });
 
 //us
+
 server.get("/us", (req,res)=> {
+    const idCasco = req.query.idCasco;
+    const sql = `SELECT nombre FROM usuarios WHERE id_casco ='${idCasco}'`;
+    console.log(sql);
+    poolmysql.query(sql, function(err,result){
+    if(err)throw console.log(err);
+        res.json(result);
+
+    })
+})
+
+
+server.post("/us", (req,res)=> {
     const idCasco = req.query.idCasco;
     const sql = `SELECT nombre FROM usuarios WHERE id_casco ='${idCasco}'`;
     poolmysql.query(sql, function(err,result){
@@ -163,7 +176,7 @@ server.get("/us", (req,res)=> {
         if (result.length > 0) {
             res.json({ nombre: result[0].nombre });
           } else {
-            res.json({ nombre: 'No se encontró ningún nombre asociado con el ID del casco' });
+            res.json({ nombre: 'No se encontró usuario' });
           }
 
     })

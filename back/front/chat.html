@@ -71,8 +71,9 @@
     <script>
 
         document.getElementById('id_casco').addEventListener("change",(e)=>{
-            alert(e.target.value);
-            fetch("http://localhost:4000/us?idCasco=" + e.target.value)
+            const idCasco = e.target.value
+            alert(idCasco);
+            fetch("http://localhost:4000/us?idCasco=${idCasco}")
             .then(Response=>Response.json)
             .then(data=data.json())
         });

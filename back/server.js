@@ -139,7 +139,7 @@ server.put("/usuarios/:usuario", (req, res) => {
 server.delete("/usuarios/:usuario", (req, res) => {
     let usuario = req.params.usuario;
 
-    const sql = `DELETE FROM usuarios W =HERE id '${usuario}'`;
+    const sql = `DELETE FROM usuarios WHERE id ='${usuario}'`;
 
     poolmysql.query(sql, function (err, result) {
         if (err) {
@@ -150,33 +150,40 @@ server.delete("/usuarios/:usuario", (req, res) => {
     });
 });
 
+//us
+server.get("/us", (req,res)=> {
+    const idCasco = req.query.idCasco;
+    const sql = `SELECT nombre FROM usuarios WHERE id_casco ='${idCasco}'`;
+    poolmysql.query(sql, function(err,result){
+
+        if(err){
+            console.error("Error al buscar el usuario:", err);
+            return res.status(500).send("Usuario no encontrado");
+        }
+        if (result.length > 0) {
+            res.json({ nombre: result[0].nombre });
+          } else {
+            res.json({ nombre: 'No se encontró ningún nombre asociado con el ID del casco' });
+          }
+
+    })
+})
+
 // Configuración de Socket.io
 io.on('connection', (socket) => {
     console.log('Nuevo cliente conectado');
 
     socket.on('sendMessage', (messageData) => {
         const { id_casco, message } = messageData;
-        const sqlM = `SELECT nombre FROM sesiones WHERE id_casco ='${id_casco}'`; // Cambiado 'usuarios' a 'sesiones'
-        poolmysql.query(sqlM, [id_casco], (err,result)=> {
-            if (err) {
-                console.error("Error al buscar el nombre:", err);
-                return;
-            }
-            
-            let nombre = 'No encontrado';
-            if(result.length > 0){
-                nombre=result[0].nombre;
-            }
-            const formattedMessage = `Usuario: ${nombre} Mensaje: ${message}`;
-            io.emit('messageToClient',formattedMessage);
-        });
+        const formattedMessage = `ID Casco:${id_casco} Mensaje:${message}`;
+        
+        io.emit('messageToClient', formattedMessage);
     });
 
     socket.on('disconnect', () => {
         console.log('Cliente desconectado');
     });
 });
-
 
 // Servidor escuchando en el puerto 4000
 httpServer.listen(4000, () => {

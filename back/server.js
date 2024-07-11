@@ -156,16 +156,27 @@ io.on('connection', (socket) => {
 
     socket.on('sendMessage', (messageData) => {
         const { id_casco, message } = messageData;
-        const sqlM = `SELECT nombre FROM usuarios WHERE id ='${id_casco}'`;
-        const formattedMessage = `ID Casco:${id_casco} Mensaje:${message}`;
-        
-        io.emit('messageToClient', formattedMessage);
+        const sqlM = `SELECT nombre FROM sesiones WHERE id_casco ='${id_casco}'`; // Cambiado 'usuarios' a 'sesiones'
+        poolmysql.query(sqlM, [id_casco], (err,result)=> {
+            if (err) {
+                console.error("Error al buscar el nombre:", err);
+                return;
+            }
+            
+            let nombre = 'No encontrado';
+            if(result.length > 0){
+                nombre=result[0].nombre;
+            }
+            const formattedMessage = `Usuario: ${nombre} Mensaje: ${message}`;
+            io.emit('messageToClient',formattedMessage);
+        });
     });
 
     socket.on('disconnect', () => {
         console.log('Cliente desconectado');
     });
 });
+
 
 // Servidor escuchando en el puerto 4000
 httpServer.listen(4000, () => {

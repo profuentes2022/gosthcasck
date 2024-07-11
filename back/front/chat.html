@@ -69,6 +69,13 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+
+        document.getElementById('id_casco').addEventListener("change",(e)=>{
+            alert(e.target.value);
+        })
+
+
+
         document.addEventListener('DOMContentLoaded', () => {
             const socket = io();
 

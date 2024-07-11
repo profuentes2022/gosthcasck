@@ -10,6 +10,19 @@ const server = express();
 const httpServer = http.createServer(server);
 const io = socketIo(httpServer);
 
+const { SerialPort } = require('serialport');
+const port = new SerialPort({path: 'COM', baudRate: 966 });
+const { ReadLineParser } = require('@serialport/parser-readline');
+
+const parser = port.pipe(new ReadLineParser({ delimiter: '\r\n'}));
+
+
+port.on('error', function(err) {
+
+    console.log('Error: ', err.message);
+
+});
+
 // Middleware y configuración
 server.use(express.static(path.join(__dirname, 'front')));
 server.use(express.json());
@@ -138,7 +151,7 @@ server.put("/usuarios/:usuario", (req, res) => {
 server.delete("/usuarios/:usuario", (req, res) => {
     let usuario = req.params.usuario;
 
-    const sql = `DELETE FROM usuarios WHERE id = '${usuario}'`;
+    const sql = `DELETE FROM usuarios W =HERE id '${usuario}'`;
 
     poolmysql.query(sql, function (err, result) {
         if (err) {

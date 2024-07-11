@@ -18,7 +18,7 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
 const configdba = {
-    host: 'localhost',
+    host: '192.168.1.11',
     usuario: 'root',
     password: '',
     database: 'ghost',

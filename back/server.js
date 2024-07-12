@@ -10,6 +10,10 @@ const server = express();
 const httpServer = http.createServer(server);
 const io = socketIo(httpServer);
 
+const { SerialPort } = require('serialport');
+const port = new SerialPort({path: 'COM8', baudRate: 9600 });
+const { ReadLineParser } = require('@serialport/parser-readline');
+
 
 // Middleware y configuración
 server.use(express.static(path.join(__dirname, 'front')));
@@ -42,6 +46,15 @@ server.get("/index", (req, res) => {
 
 server.get("/sesiones", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'regis.html'));
+});
+
+//mandar mensaje a ardruino
+
+app.post('/admin', (req, res) => {
+    const value = req.body.value;
+    console.log(`Enviando a Arduino: ${value}`);
+    arduinoPort.write(value);
+    res.sendStatus(200);
 });
 
 // Endpoint para registrar sesiones

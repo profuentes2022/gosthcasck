@@ -1,279 +1,186 @@
 body{
-    background-color: rgb(189, 0, 0);
+  background-color: rgb(189, 0, 0);
+}
+
+#login{color: aliceblue; width: 10%; font-size: 600%; left: 42%; position: absolute; top: 5%;}
+#usuario{ width: 25%; height: 40px; position: absolute; top: 30%; left: 38%; border-radius: 20px 20px 20px 20px; border: none; }
+#email{ width: 25%; height: 40px; position: absolute; top: 42%; left: 38%; border-radius: 20px 20px 20px 20px; border: none; }
+#clave{ width: 25%; height: 40px; position: absolute; top: 54%; left: 38%; border-radius: 20px 20px 20px 20px; border: none; }
+#Registrarse{width: 12%; height: 40px; font-size: 80%; border-radius: 20px 20px 20px 20px; border: none;
+position: absolute; top: 70%; left: 53%; box-shadow: -1px 32px 99px 4px rgba(129,39,39,0.75);
+-webkit-box-shadow: -1px 32px 99px 4px rgba(67, 18, 18, 0.75);
+-moz-box-shadow: -1px 32px 99px 4px rgba(129,39,39,0.75); background-color:rgba(129,39,39,0.75); color: aliceblue;}
+#Registrarse:hover{
+background-color: rgb(181, 242, 66);
+}  
+#Ingresar{width: 12%; height: 40px; font-size: 80%; border-radius: 20px 20px 20px 20px; border: none;
+  position: absolute; top: 70%; left: 38%; box-shadow: -1px 32px 99px 4px rgba(129,39,39,0.75);
+  -webkit-box-shadow: -1px 32px 99px 4px rgba(67, 18, 18, 0.75);
+  -moz-box-shadow: -1px 32px 99px 4px rgba(129,39,39,0.75); background-color:rgba(129,39,39,0.75); color: aliceblue;}
+  #Ingresar:hover{
+  background-color: rgb(181, 242, 66);
+  }  
+@media only screen and (max-width:600px){
+#login{color: aliceblue; width: 10%; font-size: 440%; left: 25%; position: absolute; top: 5%;}
+#usuario{ width: 80%; height: 40px; position: absolute; top: 20%; left: 10%; border-radius: 20px 20px 20px 20px; border: none; }
+#email{ width: 80%; height: 40px; position: absolute; top: 32%; left: 10%; border-radius: 20px 20px 20px 20px; border: none; }
+#clave{ width: 80%; height: 40px; position: absolute; top: 44%; left: 10%; border-radius: 20px 20px 20px 20px; border: none; }
+#btnn{top: 80px;}
+#Ingresar{width: 50%; left: 22%; top: 55%;}
+#Registrarse{width: 50%; left: 22%; top: 65%;}
 }
 
 
-.login {
-    position: absolute;
-    left: 34%;
-    top: -70px;
-    width: 340px;
-    height: 400px;
-    padding: 47px;
-    padding-bottom: 57px;
-    color: #fff;
-    border-radius: 17px;
-    padding-bottom: 50px;
-    font-size: 1.3em;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
+
+
+
+#btnn {
+  position: absolute;
+  top: 10%;
+  left: 80%;
+  width: 90px;
+  height: 90px;
+  background: repeating-radial-gradient(circle at 50% 50%, rgba(200,200,200,.2) 0%, rgba(200,200,200,.2) 2%, transparent 2%, transparent 3%, rgba(200,200,200,.2) 3%, transparent 3%), conic-gradient(white 0%, silver 10%, white 35%, silver 45%, white 60%, silver 70%, white 80%, silver 95%, white 100%);
+  border-radius: 50%;
+  box-shadow: 0 0px 20px #0005, 0 -0px 20px #fff2;
+  outline: 1px solid #fff;
+  outline-offset: -2px;
+  transition: 1s;
+}
+
+.text {
+  position: a;
+  top: 34px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #b33f3f;
+  text-shadow: 1px 1px 1px #fff;
   
-  .login input[type="text"],
-  .login input[type="password"] {
-    opacity: 1;
-    display: block;
-    border: none;
-    outline: none;
-    width: 100%;
-    padding: 17px 22px;
-    margin: 20px 0 0 0;
-    font-size: 0.8em;
-    border-radius: 100px;
-    background: #f7f4f4;
-    color: #f00f0f;
-  }
-  
-  .login input:focus {
-    animation: bounce 1s;
-    -webkit-appearance: none;
-  }
-  
-  .login input[type=submit],
-  .login input[type=button],
-  .h1 {
-    border: 0;
-    outline: 0;
-    width: 100%;
-    padding: 13px;
-    margin: 40px 0 0 0;
-    border-radius: 500px;
-    font-weight: 600;
-    animation: bounce2 1.6s;
-  }
-  
-  .h1 {
-    padding: 0;
-    position: relative;
-    top: -20px;
-    display: block;
-    margin-bottom: -0px;
-    font-size: 6.1em;
-  }
-  
-  
-  .login input[type=text] {
-    animation: bounce 1s;
-    -webkit-appearance: none;
-  }
-  
-  .login input[type=password] {
-    animation: bounce1 1.3s;
-  }
-  
-  .ui {
-    font-weight: bolder;
-    background: -webkit-linear-gradient(#B563FF, #535EFC, #0EC8EE);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    border-bottom: 4px solid transparent;
-    border-image: linear-gradient(0.25turn, #535EFC, #0EC8EE, #0EC8EE);
-    border-image-slice: 1;
-    display: inline;
-  }
-  
-  @media only screen and (max-width: 600px) {
-    .login {
-      width: 70%;
-      padding: 3em;
-    }
-  }
-  
-  @keyframes bounce {
-    0% {
-      transform: translateY(-250px);
-      opacity: 0;
-    }
-  }
-  
-  @keyframes bounce1 {
-    0% {
-      opacity: 0;
-    }
-  
-    40% {
-      transform: translateY(-100px);
-      opacity: 0;
-    }
-  }
-  
-  @keyframes bounce2 {
-    0% {
-      opacity: 0;
-    }
-  
-    70% {
-      transform: translateY(-20px);
-      opacity: 0;
-    }
-  }
+}
+
+.btnn:hover {
+  transform: rotate(360deg);
+}
 
 
 
 
 
+.container {
+  width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  position: absolute;
+  left: -3%; top: -10%;
+}
 
+.container .bton {
+  position: relative;
+  top: 490px;
+  left: 185px;
+  width: 250px;
+  height: 50px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .wrap {
-    text-align: center;
-    margin: 20px 0;
-  }
-  
-  .btn {
-    position: fixed;
-    top: 10%;
-    left: 80%;
-    width: 90px;
-    height: 90px;
-    background: repeating-radial-gradient(circle at 50% 50%, rgba(200,200,200,.2) 0%, rgba(200,200,200,.2) 2%, transparent 2%, transparent 3%, rgba(200,200,200,.2) 3%, transparent 3%), conic-gradient(white 0%, silver 10%, white 35%, silver 45%, white 60%, silver 70%, white 80%, silver 95%, white 100%);
-    border-radius: 50%;
-    box-shadow: 0 0px 20px #0005, 0 -0px 20px #fff2;
-    outline: 1px solid #fff;
-    outline-offset: -2px;
-    transition: 1s;
-  }
-  
-  .text {
-    position: relative;
-    top: 34px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #b33f3f;
-    text-shadow: 1px 1px 1px #fff;
-    
-  }
-  
-  .btn:hover {
-    transform: rotate(360deg);
-  }
+.container .bton a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  padding: 10px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  overflow: hidden;
+  color: #fff;
+  font-weight: 400px;
+  z-index: 1;
+  transition: 0.5s;
+  backdrop-filter: blur(15px);
+}
 
+.container .bton:hover a {
+  letter-spacing: 3px;
+}
 
+.container .bton a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.15), transparent);
+  transform: skewX(45deg) translate(0);
+  transition: 0.5s;
+  filter: blur(0px);
+}
 
+.container .bton:hover a::before {
+  transform: skewX(45deg) translate(200px);
+}
 
+.container .bton::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translatex(-50%);
+  bottom: -5px;
+  width: 30px;
+  height: 10px;
+  background: #f00;
+  border-radius: 10px;
+  transition: 0.5s;
+  transition-delay: 0.5;
+}
 
-  .container {
-    width: 1000px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-  
-  .container .bton {
-    position: relative;
-    top: 490px;
-    left: 185px;
-    width: 250px;
-    height: 50px;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .container .bton a {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 30px;
-    padding: 10px;
-    letter-spacing: 1px;
-    text-decoration: none;
-    overflow: hidden;
-    color: #fff;
-    font-weight: 400px;
-    z-index: 1;
-    transition: 0.5s;
-    backdrop-filter: blur(15px);
-  }
-  
-  .container .bton:hover a {
-    letter-spacing: 3px;
-  }
-  
-  .container .bton a::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(to left, rgba(255, 255, 255, 0.15), transparent);
-    transform: skewX(45deg) translate(0);
-    transition: 0.5s;
-    filter: blur(0px);
-  }
-  
-  .container .bton:hover a::before {
-    transform: skewX(45deg) translate(200px);
-  }
-  
-  .container .bton::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    transform: translatex(-50%);
-    bottom: -5px;
-    width: 30px;
-    height: 10px;
-    background: #f00;
-    border-radius: 10px;
-    transition: 0.5s;
-    transition-delay: 0.5;
-  }
-  
-  .container .bton:hover::before /*lightup button*/ {
-    bottom: 0;
-    height: 50%;
-    width: 80%;
-    border-radius: 30px;
-  }
-  
-  .container .bton::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    transform: translatex(-50%);
-    top: -5px;
-    width: 30px;
-    height: 10px;
-    background: #f00;
-    border-radius: 10px;
-    transition: 0.5s;
-    transition-delay: 0.5;
-  }
-  
-  .container .bton:hover::after /*lightup button*/ {
-    top: 0;
-    height: 50%;
-    width: 80%;
-    border-radius: 30px;
-  }
-  
-  .container .bton:nth-child(1)::before,
-  .container .bton:nth-child(1)::after {
-    background: #38f71e;
-    box-shadow: 0 0 5px #2db2ff, 0 0 15px #2db2ff, 0 0 30px #2db2ff,
-          0 0 60px #2db2ff;
-  }
+.container .bton:hover::before /lightup button/ {
+  bottom: 0;
+  height: 50%;
+  width: 80%;
+  border-radius: 30px;
+}
 
+.container .bton::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translatex(-50%);
+  top: -5px;
+  width: 30px;
+  height: 10px;
+  background: #f00;
+  border-radius: 10px;
+  transition: 0.5s;
+  transition-delay: 0.5;
+}
+
+.container .bton:hover::after /lightup button/ {
+  top: 0;
+  height: 50%;
+  width: 80%;
+  border-radius: 30px;
+}
+
+.container .bton:nth-child(1)::before,
+.container .bton:nth-child(1)::after {
+  background: #38f71e;
+  box-shadow: 0 0 5px #2db2ff, 0 0 15px #2db2ff, 0 0 30px #2db2ff,
+        0 0 60px #2db2ff;
+}
 
 
 

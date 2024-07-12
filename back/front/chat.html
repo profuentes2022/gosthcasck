@@ -14,7 +14,6 @@
             height: 90vh;
         }
 
-        
         #messages {
             list-style-type: none;
             padding: 0;
@@ -63,24 +62,23 @@
 
         /*  diseño barra mensaje  */
         .input {
-  border: 2px solid transparent;
-  width: 25em;
-  height: 2.5em;
-  padding-left: 0.8em;
-  outline: none;
-  overflow: hidden;
-  background-color: #F3F3F3;
-  border-radius: 10px;
-  transition: all 0.5s;
-}
+            border: 2px solid transparent;
+            width: 25em;
+            height: 2.5em;
+            padding-left: 0.8em;
+            outline: none;
+            overflow: hidden;
+            background-color: #F3F3F3;
+            border-radius: 10px;
+            transition: all 0.5s;
+        }
 
-.input:hover,
-.input:focus {
-  border: 2px solid #4A9DEC;
-  box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
-  background-color: white;
-}
-
+        .input:hover,
+        .input:focus {
+            border: 2px solid #4A9DEC;
+            box-shadow: 0px 0px 0px 7px rgba(74, 157, 236, 0.2);
+            background-color: white;
+        }
     </style>
 </head>
 <body>
@@ -91,22 +89,23 @@
     <ul id="messages"></ul>
     <div id="messageFormContainer">
         <form id="messageForm">
-            <input class="input" placeholder="text" id="message">
-            <button type="submit" name="id"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-arrow-up" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M15.854.146a.5.5 0 0 1 .11.54l-2.8 7a.5.5 0 1 1-.928-.372l1.895-4.738-7.494 7.494 1.376 2.162a.5.5 0 1 1-.844.537l-1.531-2.407L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM5.93 9.363l7.494-7.494L1.591 6.602z"/>
-                <path fill-rule="evenodd" d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.354a.5.5 0 0 0-.722.016l-1.149 1.25a.5.5 0 1 0 .737.676l.28-.305V14a.5.5 0 0 0 1 0v-1.793l.396.397a.5.5 0 0 0 .708-.708z"/>
-              </svg></button>
+            <input class="input" type="text" id="message" placeholder="Mensaje">
+            <button type="submit" name="id">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-arrow-up" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15.854.146a.5.5 0 0 1 .11.54l-2.8 7a.5.5 0 1 1-.928-.372l1.895-4.738-7.494 7.494 1.376 2.162a.5.5 0 1 1-.844.537l-1.531-2.407L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM5.93 9.363l7.494-7.494L1.591 6.602z"/>
+                    <path fill-rule="evenodd" d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.354a.5.5 0 0 0-.722.016l-1.149 1.25a.5.5 0 1 0 .737.676l.28-.305V14a.5.5 0 0 0 1 0v-1.793l.396.397a.5.5 0 0 0 .708-.708z"/>
+                </svg>
+            </button>
         </form>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-
         document.getElementById('id_casco').addEventListener("change", (e) => {
             const idCasco = e.target.value;
             alert("Bienvenido Usuario del Casco:" + idCasco);
 
-            fetch("http://localhost:4000/us?idCasco=${idCasco}")
+            fetch(`http://localhost:4000/us?idCasco=${idCasco}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.length > 0) {
@@ -159,7 +158,7 @@
 
             socket.on('messageToClient', (formattedMessage) => {
                 const li = document.createElement('li');
-                li.innerHTML = <strong>${formattedMessage}</strong>;
+                li.innerHTML = `<strong>${formattedMessage}</strong>`;
                 messagesList.appendChild(li);
                 scrollToBottom();
             });
@@ -169,6 +168,5 @@
             }
         });
     </script>
-    
 </body>
 </html>

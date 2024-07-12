@@ -11,7 +11,7 @@ const httpServer = http.createServer(server);
 const io = socketIo(httpServer);
 
 const { SerialPort } = require('serialport');
-const port = new SerialPort({path: 'COM8', baudRate: 9600 });
+const port = new SerialPort({path: 'COM6', baudRate: 9600 });
 const { ReadLineParser } = require('@serialport/parser-readline');
 
 
@@ -50,10 +50,10 @@ server.get("/sesiones", (req, res) => {
 
 //mandar mensaje a ardruino
 
-app.post('/admin', (req, res) => {
+server.post('/admin', (req, res) => {
     const value = req.body.value;
     console.log(`Enviando a Arduino: ${value}`);
-    arduinoPort.write(value);
+    port.write(value);
     res.sendStatus(200);
 });
 

@@ -44,7 +44,7 @@ server.get("/index", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'landing.html'));
 });
 
-server.get("/sesiones", (req, res) => {
+server.get("/sesiones/:id", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'regis.html'));
 });
 

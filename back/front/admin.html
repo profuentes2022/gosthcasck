@@ -271,13 +271,13 @@ height: 15%;
   let encenderState = true;
 
     document.getElementById('visera').addEventListener('click', () => {
-            const value = viseraState ? 'V' : 'G';
+            const value = viseraState ? 'A' : 'C';
             viseraState = !viseraState;
             sendData(value);
         });
 
         document.getElementById('ben').addEventListener('click', () => {
-            const value = encenderState ? 'E' : 'A';
+            const value = encenderState ? 'E' : 'P';
             encenderState = !encenderState;
             sendData(value);
         });

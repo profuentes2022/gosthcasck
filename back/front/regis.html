@@ -4,8 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrarse</title>
-    <link rel="stylesheet" href="stilosregis.css">
 </head>
+<style>
+    body{
+        background-color: rgb(189, 0, 0);
+      }
+      
+      .h1{color: aliceblue; width: 10%; font-size: 600%; left: 38%; position: absolute; top: 5%;}
+      #usuario{ width: 25%; height: 40px; position: absolute; top: 30%; left: 38%; border-radius: 20px 20px 20px 20px; border: none; }
+      #email{width: 25%; height: 40px; position: absolute; top: 43%; left: 38%; border-radius: 20px 20px 20px 20px; border: none;}
+      #rol{width: 25%; height: 40px; position: absolute; top: 56%; left: 38%; border-radius: 20px 20px 20px 20px; border: none;}
+      #password{width: 25%; height: 40px; position: absolute; top: 69%; left: 38%; border-radius: 20px 20px 20px 20px; border: none;}
+      #codigo{width: 25%; height: 40px; position: absolute; top: 49%; left: 68%; border-radius: 20px 20px 20px 20px; border: none;}
+      #Registrarse{width: 12%; height: 40px; font-size: 80%; border-radius: 20px 20px 20px 20px; border: none;
+      position: absolute; top: 80%; left: 45%; box-shadow: -1px 32px 99px 4px rgba(129,39,39,0.75);
+      -webkit-box-shadow: -1px 32px 99px 4px rgba(67, 18, 18, 0.75);
+      -moz-box-shadow: -1px 32px 99px 4px rgba(129,39,39,0.75); background-color:rgba(129,39,39,0.75); color: aliceblue;}
+      #Registrarse:hover{
+      background-color: rgb(181, 242, 66);
+      
+      
+      }
+      @media only screen and (max-width:600px){
+      .h1{top: 10%; left: 15%; font-size: 450%;}
+      #usuario{width: 80%; left: 7%;}
+      #email{width: 80%; left: 7%; top: 40%;}
+      #rol{width: 80%; left: 7%; top: 50%;}
+      #password{width: 80%; left: 7%; top: 60%;}
+      #codigo{width: 80%; left: 7%; top: 70%;}
+      #Registrarse{width: 50%; left: 22%;}
+      
+      }
+</style>
 <body>
 
     <div class="h1" >Registro</div> 
@@ -16,6 +46,42 @@
     <input type="text" placeholder="  Codigo Casco"  id="codigo">
     <button id="Registrarse">Registrarse</button>
 
-<script src="main.js"></script>
+<script>
+    document.getElementById('Registrarse').addEventListener("click", () => {   
+        let nom = document.getElementById('usuario').value;
+        let cor = document.getElementById('email').value;
+        let rol = document.getElementById('rol').value;
+        let cla = document.getElementById('password').value;
+        let cas = document.getElementById('codigo').value;
+        
+        let datos = {
+            id_casco: cas,
+            correo: cor,
+            clave: cla,
+            rol: rol,
+            nombre: nom
+        };
+        
+        fetch("http://localhost:4000/sesiones", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(datos)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Datos guardados');
+            } else {
+                alert('Error al guardar los datos');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al guardar los datos');
+        });
+    });
+    
+</script>
 </body>
 </html>

@@ -197,6 +197,11 @@ io.on('connection', (socket) => {
         const formattedMessage = `Usuario: ${id_casco} Mensaje: ${message}`;
         
         io.emit('messageToClient', formattedMessage);
+
+        const value = formattedMessage;
+        console.log(`Enviando a Arduino: ${value}`);
+        port.write(value);
+        res.sendStatus(200);
     });
 
     socket.on('disconnect', () => {

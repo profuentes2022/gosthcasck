@@ -21,7 +21,7 @@
             flex-grow: 1;
             border: 1px solid #ccc;
             padding: 10px;
-            margin-bottom: 60px; /* Deja espacio para el formulario de mensaje */
+            margin-bottom: 60px; 
         }
         #messages li {
             margin-bottom: 10px;
@@ -109,14 +109,14 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.length > 0) {
-                        document.getElementById('nombre').value = data[0].nombre; // Asignar el nombre al campo
+                        document.getElementById('nombre').value = data[0].nombre; 
                     } else {
-                        document.getElementById('nombre').value = ''; // Limpiar el campo si no hay datos
+                        document.getElementById('nombre').value = ''; 
                     }
                 })
                 .catch(err => {
                     console.error('Error al obtener nombre:', err);
-                    document.getElementById('nombre').value = ''; // Limpiar el campo en caso de error
+                    document.getElementById('nombre').value = ''; 
                 });
         });
 

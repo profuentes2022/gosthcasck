@@ -124,20 +124,6 @@ server.delete("/sesiones/:id", (req, res) => {
 
 // Endpoint para gestionar usuarios
 
-server.get("/usuarios", (req, res) => {
-    let correo = req.body.correo;
-    let clave = req.body.clave;
-
-    const sql = `SELECT * FROM usuarios WHERE correo='${correo}', clave='${clave}')`;
-
-    poolmysql.query(sql, function (err, result) {
-        if (err) {
-            console.error("Error al insertar usuario:", err);
-            return res.status(500).send("Error del servidor");
-        }
-        res.status(201).send("Usuario insertado correctamente");
-    });
-});
 
 server.put("/usuarios/:usuario", (req, res) => {
     let usuario = req.params.usuario;

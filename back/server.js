@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const path = require('path');
 const http = require('http');
@@ -11,9 +12,7 @@ const httpServer = http.createServer(server);
 const io = socketIo(httpServer);
 
 // ARDUINO
-const { SerialPort } = require('serialport');
-const port = new SerialPort({path: 'COM6', baudRate: 9600 });
-const { ReadLineParser } = require('@serialport/parser-readline');
+
 
 
 
@@ -31,7 +30,7 @@ const configdba = {
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'fantasma',
+    database: 'prueba',
 };
 
 const poolmysql = mysql.createPool(configdba);
@@ -54,12 +53,7 @@ server.get("/sesiones/:id", (req, res) => {
 });
 
 //mandar mensaje a ardruino
-server.post('/admin', (req, res) => {
-    const value = req.body.value;
-    console.log(`Enviando a Arduino: ${value}`);
-    port.write(value);
-    res.sendStatus(200);
-});
+
 
 
 
@@ -125,21 +119,30 @@ server.delete("/sesiones/:id", (req, res) => {
 server.get("/usuarios", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'login.html'));
 });
+const secretKey = "X/jsjndj7878";
 
-server.post("/usuarios", (req, res) => {
+server.get("/usuarios", (req, res) => {
     let usuario = req.body.usuario;
     let correo = req.body.correo;
     let clave = req.body.clave;
 
-    const sql = `INSERT INTO usuarios (usuario, correo, clave) VALUES ('${usuario}', '${correo}', '${clave}')`;
+    const sql = `SELECT * FROM usuarios WHERE nombre='${usuario}', correo='${correo}', clave='${clave}'`;
+    if (err) throw err;
 
-    poolmysql.query(sql, function (err, result) {
-        if (err) {
-            console.error("Error al insertar usuario:", err);
-            return res.status(500).send("Error del servidor");
-        }
-        res.status(201).send("Usuario insertado correctamente");
-    });
+    console.log(sql);
+
+    if (sql.length > 0) {
+        // Generar un token JWT
+        const token = jwt.sign({ correo }, 'secret_key', { expiresIn: '1h' });
+        res.cookie('token', token); // Opcional: almacenar el token en una cookie
+  
+        // Redirigir a la página de bienvenida
+        res.redirect('/admin');
+      } else {
+        res.status(401).send('Credenciales inválidas');
+      }
+
+    
 });
 
 server.put("/usuarios/:usuario", (req, res) => {

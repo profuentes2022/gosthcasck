@@ -13,9 +13,7 @@ const io = socketIo(httpServer);
 
 // ARDUINO
 
-const { SerialPort } = require('serialport');
-const port = new SerialPort({path: 'COM6', baudRate: 9600 });
-const { ReadLineParser } = require('@serialport/parser-readline');
+
 
 
 
@@ -33,7 +31,7 @@ const configdba = {
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'prueba',
+    database: 'ghost',
 };
 
 const poolmysql = mysql.createPool(configdba);
@@ -125,10 +123,6 @@ server.delete("/sesiones/:id", (req, res) => {
 });
 
 // Endpoint para gestionar usuarios
-server.get("/usuarios", (req, res) => {
-    res.sendFile(path.join(__dirname, 'front', 'login.html'));
-});
-const secretKey = "X/jsjndj7878";
 
 server.post("/usuarios", (req, res) => {
     let usuario = req.body.usuario;

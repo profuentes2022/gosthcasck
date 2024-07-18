@@ -51,7 +51,7 @@
     document.getElementById('codigo').addEventListener("change", (e) => {
         const idCodigo = e.target.value;
 
-        fetch(`http://localhost/samsungfinal/front/datos.php/cod?idCodigo=${idCodigo}`)
+        fetch(`http://localhost:4000/cod?idCodigo=${idCodigo}`)
             .then(response => response.json())
             .then(data => {
                 if (data && data.length > 0) {

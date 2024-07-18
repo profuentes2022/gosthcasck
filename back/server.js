@@ -76,7 +76,7 @@ server.post("/sesiones", (req, res) => {
     let rol = req.body.rol;
     let id_casco = req.body.id_casco;
 
-    const sql = `INSERT INTO sesiones (id, nombre, correo, clave, rol, id_casco) VALUES ('${id}', '${nombre}', '${correo}', '${clave}', '${rol}', '${id_casco}')`;
+    const sql = `INSERT INTO usuarios (id, nombre, correo, clave, rol, id_casco) VALUES ('${id}', '${nombre}', '${correo}', '${clave}', '${rol}', '${id_casco}')`;
 
     poolmysql.query(sql, function (err, result) {
         if (err) {
@@ -96,7 +96,7 @@ server.put("/sesiones/:id", (req, res) => {
     let rol = req.body.rol;  
     let id_casco = req.body.id_casco;  
 
-    const sql = `UPDATE sesiones SET nombre='${nombre}', correo='${correo}', clave='${clave}', rol='${rol}', id_casco='${id_casco}' WHERE id='${id}'`;
+    const sql = `UPDATE usuarios SET nombre='${nombre}', correo='${correo}', clave='${clave}', rol='${rol}', id_casco='${id_casco}' WHERE id='${id}'`;
 
     poolmysql.query(sql, function (err, result) {
         if (err) {
@@ -111,7 +111,7 @@ server.put("/sesiones/:id", (req, res) => {
 server.delete("/sesiones/:id", (req, res) => {
     let id = req.params.id;
 
-    const sql = `DELETE FROM sesiones WHERE id = '${id}'`;
+    const sql = `DELETE FROM usuarios WHERE id = '${id}'`;
 
     poolmysql.query(sql, function (err, result) {
         if (err) {
@@ -123,12 +123,16 @@ server.delete("/sesiones/:id", (req, res) => {
 });
 
 // Endpoint para gestionar usuarios
-
 server.get("/usuarios", (req, res) => {
+    res.sendFile(path.join(__dirname, 'front', 'login.html'));
+});
+
+server.post("/usuarios", (req, res) => {
+    let usuario = req.body.usuario;
     let correo = req.body.correo;
     let clave = req.body.clave;
 
-    const sql = `SELECT * FROM usuarios WHERE correo='${correo}', clave='${clave}')`;
+    const sql = `INSERT INTO usuario (usuario, correo, clave) VALUES ('${usuario}', '${correo}', '${clave}')`;
 
     poolmysql.query(sql, function (err, result) {
         if (err) {
@@ -144,7 +148,7 @@ server.put("/usuarios/:usuario", (req, res) => {
     let correo = req.body.correo;
     let clave = req.body.clave;
 
-    const sql = `UPDATE usuarios SET correo='${correo}', clave='${clave}' WHERE id='${usuario}'`;
+    const sql = `UPDATE sesiones SET correo='${correo}', clave='${clave}' WHERE id='${usuario}'`;
 
     poolmysql.query(sql, function (err, result) {
         if (err) {
@@ -158,7 +162,7 @@ server.put("/usuarios/:usuario", (req, res) => {
 server.delete("/usuarios/:usuario", (req, res) => {
     let usuario = req.params.usuario;
 
-    const sql = `DELETE FROM usuarios WHERE id ='${usuario}'`;
+    const sql = `DELETE FROM usuario WHERE id ='${usuario}'`;
 
     poolmysql.query(sql, function (err, result) {
         if (err) {

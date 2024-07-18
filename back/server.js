@@ -127,12 +127,12 @@ server.get("/usuarios", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'login.html'));
 });
 
-server.post("/usuarios", (req, res) => {
-    let usuario = req.body.usuario;
+
+server.get("/usuarios", (req, res) => {
     let correo = req.body.correo;
     let clave = req.body.clave;
 
-    const sql = `INSERT INTO usuario (usuario, correo, clave) VALUES ('${usuario}', '${correo}', '${clave}')`;
+    const sql = `SELECT * FROM usuarios WHERE correo='${correo}', clave='${clave}')`;
 
     poolmysql.query(sql, function (err, result) {
         if (err) {

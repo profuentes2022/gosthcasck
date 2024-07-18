@@ -125,17 +125,12 @@ server.delete("/sesiones/:id", (req, res) => {
 });
 
 // Endpoint para gestionar usuarios
-server.get("/usuarios", (req, res) => {
-    res.sendFile(path.join(__dirname, 'front', 'login.html'));
-});
-const secretKey = "X/jsjndj7878";
 
-server.post("/usuarios", (req, res) => {
-    let usuario = req.body.usuario;
+server.get("/usuarios", (req, res) => {
     let correo = req.body.correo;
     let clave = req.body.clave;
 
-    const sql = `INSERT INTO usuarios (usuario, correo, clave) VALUES ('${usuario}', '${correo}', '${clave}')`;
+    const sql = `SELECT * FROM usuarios WHERE correo='${correo}', clave='${clave}')`;
 
     poolmysql.query(sql, function (err, result) {
         if (err) {

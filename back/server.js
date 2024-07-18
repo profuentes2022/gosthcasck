@@ -11,6 +11,7 @@ const httpServer = http.createServer(server);
 const io = socketIo(httpServer);
 
 // ARDUINO
+
 const { SerialPort } = require('serialport');
 const port = new SerialPort({path: 'COM6', baudRate: 9600 });
 const { ReadLineParser } = require('@serialport/parser-readline');
@@ -54,6 +55,7 @@ server.get("/sesiones/:id", (req, res) => {
 });
 
 //mandar mensaje a ardruino
+
 server.post('/admin', (req, res) => {
     const value = req.body.value;
     console.log(`Enviando a Arduino: ${value}`);
@@ -184,6 +186,17 @@ server.get("/us", (req,res)=> {
 
     })
 })
+
+server.get("/cod", (req,res)=> {
+    const idCodigo = req.query.idCodigo;
+    const sql = `SELECT id_Codigo FROM cascos WHERE id_Codigo ='${idCodigo}'`;
+    console.log(sql);
+    poolmysql.query(sql, function(err,result){
+    if(err)throw console.log(err);
+        res.json(result);
+
+    });
+});
 
 
 

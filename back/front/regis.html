@@ -47,6 +47,36 @@
     <button id="Registrarse">Registrarse</button>
 
 <script>
+
+    document.getElementById('codigo').addEventListener("change", (e) => {
+        const idCodigo = e.target.value;
+
+        fetch(`http://localhost/samsungfinal/front/datos.php/cod?idCodigo=${idCodigo}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    alert("Código Correcto: " + idCodigo);
+                    // Habilitar el formulario si el código es correcto
+                    document.querySelectorAll('#usuario, #email, #rol, #password, #Registrarse').forEach(input => input.disabled = false);
+                } else {
+                    throw new Error("Código no encontrado");
+                }
+            })
+            .catch(err => {
+                console.error('Error al obtener datos:', err);
+                alert('Código Incorrecto o no encontrado');
+                // Deshabilitar el formulario si el código es incorrecto
+                document.querySelectorAll('#usuario, #email, #rol, #password, #Registrarse').forEach(input => input.disabled = true);
+                document.getElementById('codigo').disabled = false;
+            });
+    });
+
+
+    
+
+
+
+
     document.getElementById('Registrarse').addEventListener("click", () => {   
         let nom = document.getElementById('usuario').value;
         let cor = document.getElementById('email').value;

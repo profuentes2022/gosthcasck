@@ -121,28 +121,20 @@ server.get("/usuarios", (req, res) => {
 });
 const secretKey = "X/jsjndj7878";
 
-server.get("/usuarios", (req, res) => {
+server.post("/usuarios", (req, res) => {
     let usuario = req.body.usuario;
     let correo = req.body.correo;
     let clave = req.body.clave;
 
-    const sql = `SELECT * FROM usuarios WHERE nombre='${usuario}', correo='${correo}', clave='${clave}'`;
-    if (err) throw err;
+    const sql = `INSERT INTO usuarios (usuario, correo, clave) VALUES ('${usuario}', '${correo}', '${clave}')`;
 
-    console.log(sql);
-
-    if (sql.length > 0) {
-        // Generar un token JWT
-        const token = jwt.sign({ correo }, 'secret_key', { expiresIn: '1h' });
-        res.cookie('token', token); // Opcional: almacenar el token en una cookie
-  
-        // Redirigir a la página de bienvenida
-        res.redirect('/admin');
-      } else {
-        res.status(401).send('Credenciales inválidas');
-      }
-
-    
+    poolmysql.query(sql, function (err, result) {
+        if (err) {
+            console.error("Error al insertar usuario:", err);
+            return res.status(500).send("Error del servidor");
+        }
+        res.status(201).send("Usuario insertado correctamente");
+    });
 });
 
 server.put("/usuarios/:usuario", (req, res) => {

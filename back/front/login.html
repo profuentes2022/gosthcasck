@@ -3,28 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
     <link rel="stylesheet" href="stilologin.css">
 </head>
 <body>
-    
-<!--login-->
-<div id="login" >Login</div>
-<input type="text" placeholder="  Usuario" id="usuario">
-<input type="text" placeholder="  Correo" id="email">
-<input type="text" placeholder="  Clave" id="clave">
+    <div id="login">Login</div>
+    <input type="text" placeholder="Usuario" id="usuario">
+    <input type="text" placeholder="Correo" id="email">
+    <input type="password" placeholder="Clave" id="clave">
 
+    <button id="Ingresar">Ingresar</button>
+    <button id="Registrarse" onclick="regis()">Registrarse</button>
 
-<!--fin login-->
+    <script src="mainlog.js"></script>
+    <script>
+        document.getElementById('Ingresar').addEventListener('click', function() {
+            let usuario = document.getElementById('usuario').value;
+            let email = document.getElementById('email').value;
+            let clave = document.getElementById('clave').value;
 
+            // Objeto con los datos del usuario
+            let data = {
+                usuario: usuario,
+                correo: email,
+                clave: clave
+            };
 
-
-<!---boton registro-->
-<button id="Ingresar">Ingresar</button>
-
-<button id="Registrarse" onclick="regis()">Registrarse</button>
-
-
+            // Configurar la solicitud fetch para enviar los datos al servidor
+            fetch('http://localhost:4000/usuarios', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+                // Aquí podrías manejar la respuesta del servidor, por ejemplo, redirigir a otra página
+                if (data.success) {
+                    window.location.href = '/welcome'; // Redirige a la página de bienvenida si el login es exitoso
+                } else {
+                    alert('Credenciales inválidas');
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud fetch:', error);
+                alert('Hubo un problema al procesar la solicitud.');
+            });
+        });
+    </script>
 </body>
-<script src="mainlog.js"></script>
 </html>

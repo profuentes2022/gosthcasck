@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const path = require('path');
 const http = require('http');
@@ -32,7 +33,7 @@ const configdba = {
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'fantasma',
+    database: 'prueba',
 };
 
 const poolmysql = mysql.createPool(configdba);
@@ -127,6 +128,7 @@ server.delete("/sesiones/:id", (req, res) => {
 server.get("/usuarios", (req, res) => {
     res.sendFile(path.join(__dirname, 'front', 'login.html'));
 });
+const secretKey = "X/jsjndj7878";
 
 server.post("/usuarios", (req, res) => {
     let usuario = req.body.usuario;
@@ -210,6 +212,11 @@ io.on('connection', (socket) => {
         const formattedMessage = `Usuario: ${id_casco} Mensaje: ${message}`;
         
         io.emit('messageToClient', formattedMessage);
+
+        const value = formattedMessage;
+        console.log(`Enviando a Arduino: ${value}`);
+        port.write(value);
+        res.sendStatus(200);
     });
 
     socket.on('disconnect', () => {

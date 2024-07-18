@@ -30,27 +30,28 @@
             };
 
             // Configurar la solicitud fetch para enviar los datos al servidor
-            fetch('http://localhost:4000/usuarios', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
+            fetch(`http://localhost:4000/usuarios`)
             .then(response => response.json())
             .then(data => {
-                console.log('Respuesta del servidor:', data);
-                // Aquí podrías manejar la respuesta del servidor, por ejemplo, redirigir a otra página
-                if (data.success) {
-                    window.location.href = '/welcome'; // Redirige a la página de bienvenida si el login es exitoso
+                if (data && data.length > 0) {
+                    alert("Usuario encontrado Iniciando Sesion");
+                    // Habilitar el formulario si el código es correcto
+                    document.location.href="http://192.168.1.108:4000/admin";
+                    
                 } else {
-                    alert('Credenciales inválidas');
+                    throw new Error("Usuario no encontrado");
                 }
             })
-            .catch(error => {
-                console.error('Error en la solicitud fetch:', error);
-                alert('Hubo un problema al procesar la solicitud.');
+            .catch(err => {
+
+                alert('Usuario incorrecto vuelva a intentarlo');
+                usuario="";
+                email="";
+                clave="";
+
             });
+
+            
         });
     </script>
 </body>

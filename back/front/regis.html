@@ -48,28 +48,27 @@
 
 <script>
 
-    document.getElementById('codigo').addEventListener("change", (e) => {
-        const idCodigo = e.target.value;
+   document.getElementById('codigo').addEventListener("change", (e) => {
+    const id_codigo = e.target.value;
 
-        fetch(`http://localhost:4000/cod?idCodigo=${idCodigo}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data && data.length > 0) {
-                    alert("Código Correcto: " + idCodigo);
-                    // Habilitar el formulario si el código es correcto
-                    document.querySelectorAll('#usuario, #email, #rol, #password, #Registrarse').forEach(input => input.disabled = false);
-                } else {
-                    throw new Error("Código no encontrado");
-                }
-            })
-            .catch(err => {
-                console.error('Error al obtener datos:', err);
-                alert('Código Incorrecto o no encontrado');
-                // Deshabilitar el formulario si el código es incorrecto
-                document.querySelectorAll('#usuario, #email, #rol, #password, #Registrarse').forEach(input => input.disabled = true);
-                document.getElementById('codigo').disabled = false;
-            });
-    });
+    fetch(`http://192.168.1.116/samsungfinal/view/v_api.php?cod=${id_codigo}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                alert("Código Correcto: " + id_codigo);
+                // Habilitar el formulario si el código es correcto
+                document.querySelectorAll('#usuario, #email, #rol, #password, #Registrarse').forEach(input => input.disabled = false);
+            } else {
+                throw new Error("Código no encontrado");
+            }
+        })
+        .catch(err => {s
+            console.error('Error al obtener datos:', err);
+            alert('Código Incorrecto o no encontrado');
+            // Deshabilitar el formulario si el código es incorrecto
+            document.querySelectorAll('#usuario, #email, #rol, #password, #Registrarse').forEach(input => input.disabled = true);
+        });
+});
 
 
     
@@ -92,7 +91,7 @@
             nombre: nom
         };
         
-        fetch("http://localhost:4000/sesiones", {
+        fetch("http://192.168.1.108:4000/sesiones", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

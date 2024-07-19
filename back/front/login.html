@@ -23,14 +23,9 @@
             let clave = document.getElementById('clave').value;
 
             // Objeto con los datos del usuario
-            let data = {
-                usuario: usuario,
-                correo: email,
-                clave: clave
-            };
 
             // Configurar la solicitud fetch para enviar los datos al servidor
-            fetch(`http://localhost:4000/usuarios`)
+            fetch(`http://192.168.1.108:4000/usu?clave=${clave}`)
             .then(response => response.json())
             .then(data => {
                 if (data && data.length > 0) {

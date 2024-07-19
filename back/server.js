@@ -128,18 +128,16 @@ server.get("/usuarios", (req, res) => {
 });
 
 
-server.get("/usuarios", (req, res) => {
-    let correo = req.body.correo;
-    let clave = req.body.clave;
+server.get("/usu", (req, res) => {
+    const clave = req.query.clave;
 
-    const sql = `SELECT * FROM usuarios WHERE correo='${correo}', clave='${clave}')`;
+    const sql = `SELECT nombre FROM usuarios WHERE clave='${clave}'`;
 
-    poolmysql.query(sql, function (err, result) {
-        if (err) {
-            console.error("Error al insertar usuario:", err);
-            return res.status(500).send("Error del servidor");
-        }
-        res.status(201).send("Usuario insertado correctamente");
+    console.log(sql);
+    poolmysql.query(sql, function(err,result){
+    if(err)throw console.log(err);
+        res.json(result);
+
     });
 });
 
@@ -173,6 +171,8 @@ server.delete("/usuarios/:usuario", (req, res) => {
     });
 });
 
+//usa
+
 //us
 
 server.get("/us", (req,res)=> {
@@ -186,14 +186,18 @@ server.get("/us", (req,res)=> {
     })
 })
 
-server.get("/cod", (req,res)=> {
-    const idCodigo = req.query.idCodigo;
-    const sql = `SELECT id_Codigo FROM cascos WHERE id_Codigo ='${idCodigo}'`;
+server.get("/cod", (req, res) => {
+    const id_codigo = req.query.id_codigo;
+    const sql = `SELECT id_codigo FROM cascos WHERE id_codigo ='${id_codigo}'`;
     console.log(sql);
-    poolmysql.query(sql, function(err,result){
-    if(err)throw console.log(err);
-        res.json(result);
 
+    poolmysql.query(sql, function(err, result) {
+        if (err) {
+            console.log(err);
+            res.status(500).send('Error en la base de datos');
+            return;
+        }
+        res.json(result);
     });
 });
 
